@@ -1,8 +1,7 @@
 const title = document.getElementById("myTitle");
-const image = document.getElementById("myImage");
 
 function handleClick(event){
-    location.href = "C:/Users/Administrator/Desktop/Java_Script/Profile-Page/pages/life.html";
+    location.href = "C:/Users/Administrator/Desktop/Java_Script/Profile-Page/index.html";
 }
 
 title.addEventListener("click", handleClick);
