@@ -6,7 +6,7 @@ body{
 }
 
 hr{
-    margin-top: 30px;
+    margin-top: 3%;
 }
 
 .jsTitle{
@@ -24,7 +24,7 @@ hr{
     display: flex;
     align-self: right;
     flex-direction: row;
-    padding-left: 1260px;
+    padding-left: 50%; /*1260px;*/
     margin-bottom: 30px;
     background-color: black;
 }       
@@ -54,8 +54,10 @@ hr{
 }
 
 .first{
-    margin-left: 150px;
-    margin-right: 150px;
+    /* margin-left: 150px;
+    margin-right: 150px; */
+    margin-left: 10%;
+    margin-right: 10%;
 }
 
 .jsImage{
@@ -71,20 +73,23 @@ hr{
 
 .myProfile{
     color: black;
-    font-size: 15px;
+    /* font-size: 15px;
     line-height: 30px;
-    padding-left: 225px;
+    padding-left: 225px; */
+    font-size: 100%;
+    line-height: 200%;
+    padding-left: 25%;
 }
 
 .myProfile .profileName{
     color: black;
-    font-size: 35px;
-    line-height: 1px;
+    font-size: 200%;
+    line-height: 30%;
 }
 
 .section{
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 10%;
+    margin-right: 10%;
     color:black;
 
 }
