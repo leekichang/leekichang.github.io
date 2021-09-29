@@ -1,5 +1,5 @@
 body{
-    background-color:black;
+    background-color:white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@ hr{
 }
 
 .jsTitle{
-    color:white;
+    color:black;
     align-self: center;
     cursor: pointer;
 }
@@ -26,8 +26,8 @@ hr{
     flex-direction: row;
     padding-left: 1260px;
     margin-bottom: 30px;
-    background-color: blanchedalmond;
-}
+    background-color: black;
+}       
 
 .upperBar li{
     display: block;
@@ -70,14 +70,14 @@ hr{
 }
 
 .myProfile{
-    color: white;
+    color: black;
     font-size: 15px;
     line-height: 30px;
-    padding-left: 370px;
+    padding-left: 225px;
 }
 
 .myProfile .profileName{
-    color: rgb(245, 240, 234);
+    color: black;
     font-size: 35px;
     line-height: 1px;
 }
@@ -85,6 +85,6 @@ hr{
 .section{
     margin-left: 150px;
     margin-right: 150px;
-    color: white;
+    color:black;
 
 }
