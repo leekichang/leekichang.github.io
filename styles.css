@@ -61,8 +61,8 @@ hr{
 }
 
 .jsImage{
-    width: 70%;
-    height: 200px;
+    width: 20;
+    height: 300px;
     float: right;
     border-radius: 10%;
     overflow: hidden;
@@ -75,8 +75,8 @@ hr{
 }
 
 .ysLogo{
-    width: 70%;
-    height: 200px;
+    width: 20%;
+    height: 300px;
     float: left;
 }
 
