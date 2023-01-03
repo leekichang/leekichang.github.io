@@ -69,7 +69,7 @@ hr{
 }
 
 .jsImage img{
-    max-width: 100%;
+    max-width: 20%;
     height: auto;
     display: block;
 }
@@ -81,7 +81,7 @@ hr{
 }
 
 .ysLogo img{
-    max-width: 100%;
+    max-width: 20%;
     height: auto;
     display: block;
 }
