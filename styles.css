@@ -65,6 +65,13 @@ hr{
     height: auto;
     float: right;
     border-radius: 10%;
+    overflow: hidden;
+}
+
+.jsImage img{
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .ysLogo{
@@ -72,6 +79,13 @@ hr{
     height: auto;
     float: left;
 }
+
+.ysLogo img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 
 .myProfile{
     color: black;
