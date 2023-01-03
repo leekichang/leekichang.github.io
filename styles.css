@@ -62,12 +62,14 @@ hr{
 
 .jsImage{
     width: 20%;
+    height: auto;
     float: right;
     border-radius: 10%;
 }
 
 .ysLogo{
     width: 20%;
+    height: auto;
     float: left;
 }
 
