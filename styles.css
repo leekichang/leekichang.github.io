@@ -109,3 +109,7 @@ hr{
     color:black;
 
 }
+
+#check-btn { display: none; }
+#check-btn:checked ~ .menubars { display: block; } 
+.menubars { display: none; }
