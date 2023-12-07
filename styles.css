@@ -110,6 +110,6 @@ hr{
 
 }
 
-#check-btn { display: none; }
+#check-btn { display: none; cursor: pointer;}
 #check-btn:checked ~ .menubars { display: block; } 
 .menubars { display: none; }
