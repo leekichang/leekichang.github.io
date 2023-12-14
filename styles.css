@@ -122,14 +122,14 @@ hr {
 span.label {
 display: inline-block;
 vertical-align: middle;
-font-size: 80%;
+font-size: 100%;
 font-weight: bold;
 line-height: 1;
 color: #fff;
 text-align: center;
 white-space: nowrap;
 border-radius: .25em;
-padding: 5px 3px 2px;
+padding: 3px 3px 3px;
 }
 
 span.label-mobile { background-color: #4CAF50; }
