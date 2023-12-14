@@ -119,3 +119,21 @@ hr{
 hr {
     margin-top: 1%; /* 위쪽 마진을 없애거나 조절합니다. */
   }
+span.label {
+display: inline-block;
+vertical-align: middle;
+font-size: 80%;
+font-weight: bold;
+line-height: 1;
+color: #fff;
+text-align: center;
+white-space: nowrap;
+border-radius: .25em;
+padding: 5px 3px 2px;
+}
+
+span.label-mobile { background-color: #4CAF50; }
+span.label-ai { background-color: #2196F3; }
+span.label-sec { background-color: #F44336; }
+span.label-fed { background-color: #FF9800; }
+span.label-med { background-color: #BA55D3; }
