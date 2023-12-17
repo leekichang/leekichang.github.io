@@ -92,12 +92,18 @@ hr{
 
 /* 모바일 화면에 대한 스타일 조정 */
 @media screen and (max-width: 768px) {
-    .jsImage,
-    .ysLogo {
-        width: 100%; /* 모바일 화면에 맞게 100%로 조정 */
-        float: none; /* 모바일 화면에서는 float 제거 */
+    .jsImage{
+        width: 50%; /* 모바일 화면에 맞게 100%로 조정 */
+        float: right; /* 모바일 화면에서는 float 제거 */
         margin-bottom: 20px; /* 요소들 사이에 여백 추가 */
-        border-radius: 0%; /* 모바일 화면에서는 border-radius 제거 */
+        border-radius: 10%; /* 모바일 화면에서는 border-radius 제거 */
+    }
+
+    .ysLogo {
+        width: 50%; /* 모바일 화면에 맞게 100%로 조정 */
+        float: left; /* 모바일 화면에서는 float 제거 */
+        margin-top: 20px; /* 요소들 사이에 여백 추가 */
+        border-radius: 10%; /* 모바일 화면에서는 border-radius 제거 */
     }
 }
 
