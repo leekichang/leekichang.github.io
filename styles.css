@@ -62,7 +62,46 @@ hr{
     margin-right: 10%;
 }
 
-.jsImage{
+.jsImage {
+    width: 8%; /* 변경: 50%로 수정 */
+    height: auto; /* 변경: 비율을 유지하기 위해 자동 높이 설정 */
+    float: right;
+    border-radius: 10%;
+    overflow: hidden;
+    box-sizing: border-box; /* 추가: 너비가 변경되어도 요소의 크기를 고정하기 위해 */
+}
+
+.jsImage img {
+    width: 100%; /* 변경: 이미지 너비 100%로 설정 */
+    height: auto;
+    display: block;
+}
+
+.ysLogo {
+    width: 11%; /* 변경: 50%로 수정 */
+    height: auto; /* 변경: 비율을 유지하기 위해 자동 높이 설정 */
+    float: left;
+    box-sizing: border-box; /* 추가: 너비가 변경되어도 요소의 크기를 고정하기 위해 */
+}
+
+.ysLogo img {
+    width: 10%; /* 변경: 이미지 너비 100%로 설정 */
+    height: auto;
+    display: block;
+}
+
+/* 모바일 화면에 대한 스타일 조정 */
+@media screen and (max-width: 768px) {
+    .jsImage,
+    .ysLogo {
+        width: 100%; /* 모바일 화면에 맞게 100%로 조정 */
+        float: none; /* 모바일 화면에서는 float 제거 */
+        margin-bottom: 20px; /* 요소들 사이에 여백 추가 */
+        border-radius: 0%; /* 모바일 화면에서는 border-radius 제거 */
+    }
+}
+
+/* .jsImage{
     width: 20;
     height: 300px;
     float: right;
@@ -86,7 +125,7 @@ hr{
     max-width: 100%;
     height: auto;
     display: block;
-}
+} */
 
 
 .myProfile{
@@ -132,6 +171,7 @@ border-radius: .25em;
 padding: 3px 3px 3px;
 }
 
+span.label-total { background-color: #000000; }
 span.label-mobile { background-color: #4CAF50; }
 span.label-ai { background-color: #2196F3; }
 span.label-sec { background-color: #F44336; }
