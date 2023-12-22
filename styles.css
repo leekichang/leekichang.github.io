@@ -126,7 +126,6 @@ hr{
 .myProfile .profileInfo {
     display: flex;
     flex-direction: column; /* 항목들을 세로로 배치합니다. */
-    list-style: none; /* bullet point 제거 */
 }
 
 .myProfile .profileInfo .profileName::before,
