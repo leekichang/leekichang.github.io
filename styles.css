@@ -107,33 +107,6 @@ hr{
     }
 }
 
-/* .jsImage{
-    width: 20;
-    height: 300px;
-    float: right;
-    border-radius: 10%;
-    overflow: hidden;
-}
-
-.jsImage img{
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.ysLogo{
-    width: 20;
-    height: 300px;
-    float: left;
-}
-
-.ysLogo img{
-    max-width: 100%;
-    height: auto;
-    display: block;
-} */
-
-
 .myProfile{
     color: black;
     /* font-size: 15px;
@@ -141,13 +114,63 @@ hr{
     padding-left: 225px; */
     font-size: 100%;
     line-height: 200%;
-    padding-left: 25%;
+    padding-left: 0%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%; /* 부모 요소의 최대 너비를 100%로 제한합니다. */
+}
+
+.myProfile .profileInfo {
+    display: flex;
+    flex-direction: column; /* 항목들을 세로로 배치합니다. */
+    list-style: none; /* bullet point 제거 */
+}
+
+.myProfile .profileInfo .profileName::before,
+.myProfile .profileInfo .student::before {
+    content: none; /* 선택한 요소들의 가상 요소 bullet을 제거합니다. */
+}
+
+.myProfile .profileInfo p,
+.myProfile .profileInfo a {
+    margin-bottom: 10px; /* 각 항목 아래 간격을 설정합니다. */
+    text-decoration: none; /* 링크에 밑줄 제거 */
+    position: relative;
+}
+
+.myProfile .profileInfo p::before,
+.myProfile .profileInfo a::before {
+    content: '';
+    position: absolute;
+    left: -20px; /* 왼쪽으로 이동하여 마치 bullet point처럼 보이게 합니다. */
+    top: 12.5px; /* 원하는 위치로 조정 가능합니다. */
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #000; /* 색상을 원하는 색으로 변경할 수 있습니다. */
+}
+
+.myProfile img {
+    max-width: 20%; /* 이미지의 최대 너비를 조절할 수 있습니다. */
+    max-width: 300px;
+    height: auto;
+    border-radius: 10%;
 }
 
 .myProfile .profileName{
+    left: -25px;
     color: black;
     font-size: 200%;
-    line-height: 30%;
+    line-height: 150%;
+}
+
+.myProfile .student{
+    color: black;
+    font-size: 150%;
+    line-height: 100%;
 }
 
 .section{
@@ -155,6 +178,19 @@ hr{
     margin-right: 10%;
     /* margin-bottom: -2.5%; */
     color:black;
+}
+
+@media screen and (max-width: 768px) {
+    .myProfile {
+        flex-direction: column-reverse; /* 이미지를 텍스트 위로 배치 */
+        align-items: center;
+    }
+
+    .myProfile img {
+        width: 50%; /* 이미지 크기 조정 */
+        max-width: 100%; /* 이미지 최대 너비 설정 */
+        margin-bottom: 10px; /* 이미지 아래 여백 추가 */
+    }
 }
 
 .check-btn { display: none;}
