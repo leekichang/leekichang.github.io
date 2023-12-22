@@ -134,24 +134,23 @@ hr{
     content: none; /* 선택한 요소들의 가상 요소 bullet을 제거합니다. */
 }
 
-.myProfile .profileInfo p,
+/* .myProfile .profileInfo p,
 .myProfile .profileInfo a {
-    margin-bottom: 10px; /* 각 항목 아래 간격을 설정합니다. */
-    text-decoration: none; /* 링크에 밑줄 제거 */
+    margin-bottom: 10px;
     position: relative;
-}
+} */
 
-.myProfile .profileInfo p::before,
+/* .myProfile .profileInfo p::before,
 .myProfile .profileInfo a::before {
     content: '';
     position: absolute;
-    left: -20px; /* 왼쪽으로 이동하여 마치 bullet point처럼 보이게 합니다. */
-    top: 12.5px; /* 원하는 위치로 조정 가능합니다. */
+    left: -20px; 
+    top: 12.5px; 
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: #000; /* 색상을 원하는 색으로 변경할 수 있습니다. */
-}
+    background-color: #000; 
+} */
 
 .myProfile img {
     max-width: 20%; /* 이미지의 최대 너비를 조절할 수 있습니다. */
@@ -161,7 +160,6 @@ hr{
 }
 
 .myProfile .profileName{
-    left: -25px;
     color: black;
     font-size: 200%;
     line-height: 150%;
