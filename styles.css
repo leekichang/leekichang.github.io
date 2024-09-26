@@ -62,6 +62,16 @@ hr{
     margin-right: 10%;
 }
 
+.scrollable-section {
+    width: 80%;
+    margin-left: 10%;
+    height: 300px; /* 높이 조정 */
+    overflow-y: scroll; /* 세로 스크롤 활성화 */
+    border: 1px solid #ccc;
+    padding: 15px;
+    box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+}
+      
 .jsImage {
     width: 8%; /* 변경: 50%로 수정 */
     height: auto; /* 변경: 비율을 유지하기 위해 자동 높이 설정 */
