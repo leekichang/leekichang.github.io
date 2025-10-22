@@ -1,4 +1,69 @@
-<!DOCTYPE html>
+#!/usr/bin/env python3
+"""
+Build dashboard strictly from the fixed schema:
+  date, type, distance_km, avg_pace, avg_hr_bpm, avg_cadence_spm, rpe, notes
+
+- distance_km: decimal number (km)
+- avg_pace: "m:s" or "mm:ss" string (minutes:seconds per km). If a float is given, it's treated as minutes.
+- Missing values are imputed conservatively (per-type median -> global median), without changing existing filled values.
+- Outputs a standalone run_dashboard.html with interactive plots and filters.
+"""
+import argparse, re, json
+from pathlib import Path
+import pandas as pd
+import numpy as np
+
+def detect_and_read_csv(path: Path) -> pd.DataFrame:
+    encodings = ["utf-8-sig", "cp949", "euc-kr", "ISO-8859-1"]
+    last_err = None
+    for enc in encodings:
+        try:
+            return pd.read_csv(path, encoding=enc)
+        except Exception as e:
+            last_err = e
+            continue
+    raise last_err or RuntimeError("Failed to read CSV")
+
+def parse_date(x):
+    if pd.isna(x): return pd.NaT
+    try:
+        return pd.to_datetime(str(x).strip())
+    except Exception:
+        return pd.NaT
+
+def parse_pace_mmss_to_minutes(x):
+    """Accept '6:30', '06:30', 6.5 -> minutes per km (float)."""
+    if pd.isna(x): return np.nan
+    s = str(x).strip()
+    # Allow raw float (already minutes)
+    try:
+        return float(s)
+    except Exception:
+        pass
+    m = re.match(r'^\s*(\d{1,2})\s*[:]\s*(\d{1,2})\s*$', s)
+    if m:
+        mm = int(m.group(1)); ss = int(m.group(2))
+        if 0 <= ss < 60:
+            return mm + ss/60.0
+    return np.nan
+
+def monday_of_week(ts: pd.Timestamp):
+    if pd.isna(ts): return pd.NaT
+    return (ts - pd.Timedelta(days=ts.weekday())).normalize()
+
+def impute_with_medians(df, col, by="type"):
+    s = df[col].copy()
+    # per-type median
+    med_by_type = df.groupby(by)[col].transform('median')
+    s = s.fillna(med_by_type)
+    # global median
+    if s.isna().any():
+        gmed = float(np.nanmedian(s))
+        if not np.isnan(gmed):
+            s = s.fillna(gmed)
+    return s
+
+DASHBOARD_HTML = r"""<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -112,8 +177,8 @@
   </div>
 
 <script>
-const DAILY = [{"date": "2025-07-20", "type": "easy", "dist_km": 5.0, "pace_minpkm": 7.9, "hr_avg": 163.0, "rpe": 7.5, "notes": "Track; 30\"×7 cadence drill after; heat ~28C"}, {"date": "2025-08-01", "type": "tempo", "dist_km": 6.0, "pace_minpkm": 7.35, "hr_avg": 165.0, "rpe": 8.0, "notes": "Splits ~6:53; last 6:31"}, {"date": "2025-08-02", "type": "lsd", "dist_km": 12.0, "pace_minpkm": 8.7666666667, "hr_avg": 155.0, "rpe": 3.5, "notes": "Mild knee pain ~8km"}, {"date": "2025-08-03", "type": "easy", "dist_km": 1.0, "pace_minpkm": 6.8, "hr_avg": 144.5, "rpe": 4.0, "notes": "nan"}, {"date": "2025-08-04", "type": "easy", "dist_km": 6.25, "pace_minpkm": 8.3166666667, "hr_avg": 150.0, "rpe": 4.0, "notes": "Slight knee discomfort ~5km; last 1km ~5:18"}, {"date": "2025-08-05", "type": "intervals", "dist_km": 6.0, "pace_minpkm": 7.1666666667, "hr_avg": 151.0, "rpe": 6.5, "notes": "2km WU; 400m on/off, 400m×5"}, {"date": "2025-08-06", "type": "easy", "dist_km": 6.01, "pace_minpkm": 7.9666666667, "hr_avg": 144.5, "rpe": 3.0, "notes": "Last 1km faster"}, {"date": "2025-08-07", "type": "tempo", "dist_km": 7.0, "pace_minpkm": 6.5166666667, "hr_avg": 153.0, "rpe": 4.0, "notes": "RPE blocks 5?6→6?7→7?8"}, {"date": "2025-08-08", "type": "easy", "dist_km": 6.0, "pace_minpkm": 8.2333333333, "hr_avg": 151.0, "rpe": 5.0, "notes": "Hot; hip discomfort"}, {"date": "2025-08-09", "type": "lsd", "dist_km": 15.0, "pace_minpkm": 7.7666666667, "hr_avg": 147.0, "rpe": 6.0, "notes": "Hip improved; knee discomfort after 10km"}, {"date": "2025-08-10", "type": "easy", "dist_km": 5.11, "pace_minpkm": 8.5833333333, "hr_avg": 150.0, "rpe": 4.0, "notes": "Ran with friend; last 1km faster"}, {"date": "2025-08-11", "type": "easy", "dist_km": 8.11, "pace_minpkm": 7.55, "hr_avg": 144.0, "rpe": 4.0, "notes": "Last 2km faster"}, {"date": "2025-08-12", "type": "intervals", "dist_km": 8.0, "pace_minpkm": 7.0, "hr_avg": 136.0, "rpe": 8.0, "notes": "WU 2km; HRpeak 175; side stitch from rep3, 800m×5"}, {"date": "2025-08-14", "type": "tempo", "dist_km": 5.0, "pace_minpkm": 7.1666666667, "hr_avg": 145.0, "rpe": 7.0, "notes": "Cut short; low energy"}, {"date": "2025-08-15", "type": "easy", "dist_km": 8.15, "pace_minpkm": 7.2833333333, "hr_avg": 145.0, "rpe": 5.0, "notes": "Hip discomfort persists; fatigue"}, {"date": "2025-08-16", "type": "lsd", "dist_km": 16.0, "pace_minpkm": 6.7333333333, "hr_avg": 155.0, "rpe": 4.0, "notes": "Felt depleted late; need gels"}, {"date": "2025-08-17", "type": "easy", "dist_km": 5.31, "pace_minpkm": 8.9166666667, "hr_avg": 117.0, "rpe": 3.5, "notes": "Heavy first 2km then ok"}, {"date": "2025-08-18", "type": "easy", "dist_km": 8.15, "pace_minpkm": 7.2166666667, "hr_avg": 144.5, "rpe": 3.0, "notes": "Segments; 400m @5:00 inside"}, {"date": "2025-08-19", "type": "intervals", "dist_km": 9.6, "pace_minpkm": 4.8333333333, "hr_avg": 172.0, "rpe": 8.0, "notes": "Good HR recovery; stitch mid-session 800m×5"}, {"date": "2025-08-20", "type": "easy", "dist_km": 6.33, "pace_minpkm": 9.2, "hr_avg": 132.0, "rpe": 1.5, "notes": "nan"}, {"date": "2025-08-22", "type": "tempo", "dist_km": 8.02, "pace_minpkm": 6.9, "hr_avg": 151.0, "rpe": 6.0, "notes": "Steady; one fast km 5:45"}, {"date": "2025-08-23", "type": "easy", "dist_km": 5.32, "pace_minpkm": 7.8333333333, "hr_avg": 140.0, "rpe": 4.0, "notes": "nan"}, {"date": "2025-08-24", "type": "lsd", "dist_km": 21.11, "pace_minpkm": 7.3333333333, "hr_avg": 147.0, "rpe": 8.0, "notes": "nan"}, {"date": "2025-08-28", "type": "easy", "dist_km": 6.52, "pace_minpkm": 7.8166666667, "hr_avg": 144.5, "rpe": 3.0, "notes": "nan"}, {"date": "2025-08-31", "type": "lsd", "dist_km": 14.01, "pace_minpkm": 7.4833333333, "hr_avg": 147.0, "rpe": 4.5, "notes": "+89m elevation; late fatigue"}, {"date": "2025-09-05", "type": "easy", "dist_km": 10.02, "pace_minpkm": 7.0833333333, "hr_avg": 144.5, "rpe": 5.0, "notes": "No HR"}, {"date": "2025-09-08", "type": "easy", "dist_km": 5.03, "pace_minpkm": 6.6833333333, "hr_avg": 144.5, "rpe": 3.0, "notes": "Return after weather break"}, {"date": "2025-09-10", "type": "tempo", "dist_km": 10.01, "pace_minpkm": 6.6166666667, "hr_avg": 153.0, "rpe": 4.0, "notes": "Finish 1km 5:38"}, {"date": "2025-09-10", "type": "tempo", "dist_km": 8.01, "pace_minpkm": 6.4166666667, "hr_avg": 161.0, "rpe": 4.0, "notes": "High HR; hill +60m"}, {"date": "2025-09-15", "type": "easy", "dist_km": 12.02, "pace_minpkm": 7.0666666667, "hr_avg": 152.0, "rpe": 5.0, "notes": "Zone2-3; one km @6:18"}, {"date": "2025-09-16", "type": "tempo", "dist_km": 8.12, "pace_minpkm": 6.3666666667, "hr_avg": 157.0, "rpe": 4.0, "notes": "Strong steady run"}, {"date": "2025-09-17", "type": "tempo", "dist_km": 8.01, "pace_minpkm": 6.4, "hr_avg": 152.0, "rpe": 3.0, "notes": "3km <6:00 within; finish 5:58"}, {"date": "2025-09-18", "type": "tempo", "dist_km": 9.0, "pace_minpkm": 6.2833333333, "hr_avg": 153.0, "rpe": 5.0, "notes": "nan"}, {"date": "2025-09-28", "type": "race", "dist_km": 21.1, "pace_minpkm": 6.5, "hr_avg": 161.0, "rpe": 8.0, "notes": "Official 2:17:11; avg 6:30/km"}, {"date": "2025-10-05", "type": "easy", "dist_km": 10.47, "pace_minpkm": 7.35, "hr_avg": 148.0, "rpe": 7.0, "notes": "Side stitch pain"}, {"date": "2025-10-08", "type": "lsd", "dist_km": 26.0, "pace_minpkm": 9.45, "hr_avg": 140.0, "rpe": 4.0, "notes": "Long run"}, {"date": "2025-10-12", "type": "easy", "dist_km": 5.07, "pace_minpkm": 10.5666666667, "hr_avg": 120.0, "rpe": 1.0, "notes": "Running w/ novice friend"}, {"date": "2025-10-12", "type": "tempo", "dist_km": 2.03, "pace_minpkm": 5.85, "hr_avg": 155.0, "rpe": 6.5, "notes": "short high intensity run"}, {"date": "2025-10-14", "type": "easy", "dist_km": 4.1, "pace_minpkm": 8.4666666667, "hr_avg": 137.0, "rpe": 2.0, "notes": "Running w/ novice friend"}, {"date": "2025-10-14", "type": "tempo", "dist_km": 7.0, "pace_minpkm": 6.9, "hr_avg": 153.0, "rpe": 5.0, "notes": "Track; Tried to keep sub 7:00/km"}, {"date": "2025-10-15", "type": "tempo", "dist_km": 5.0, "pace_minpkm": 5.8333333333, "hr_avg": 164.0, "rpe": 7.0, "notes": "Track; Tried to keep sub 6:00/km, HR upto 179, 3km PR 17:23"}, {"date": "2025-10-15", "type": "recovery", "dist_km": 12.0, "pace_minpkm": 7.8, "hr_avg": 148.0, "rpe": 5.0, "notes": "Recovery, bit fatigue after 10km"}, {"date": "2025-10-16", "type": "fartlek", "dist_km": 10.0, "pace_minpkm": 7.1833333333, "hr_avg": 145.0, "rpe": 3.0, "notes": "Running w/ novice friend, Sprint upto 4:25"}, {"date": "2025-10-18", "type": "lsd", "dist_km": 20.0, "pace_minpkm": 7.4333333333, "hr_avg": 138.0, "rpe": 5.0, "notes": "maintain HR < 140, muscle fatigue after 15~16km, no damage on cardio system"}, {"date": "2025-10-19", "type": "recovery", "dist_km": 8.0, "pace_minpkm": 7.8333333333, "hr_avg": 143.0, "rpe": 3.0, "notes": "Running w/ novice friend, build up from+H96 9:00/km to 7:00/km"}, {"date": "2025-10-20", "type": "easy", "dist_km": 10.0, "pace_minpkm": 6.9, "hr_avg": 141.0, "rpe": 6.0, "notes": "Running w/ novice friend, recovery jog 5km + tempo run 5km (~5:30/km)"}, {"date": "2025-10-21", "type": "tempo", "dist_km": 5.0, "pace_minpkm": 5.6333333333, "hr_avg": 157.0, "rpe": 7.5, "notes": "WU 1km; <5:30/km 4km, ankle pain for first 1km, started bit side stitch 4km, faster than I felt since 3km."}, {"date": "2025-10-21", "type": "recovery", "dist_km": 5.11, "pace_minpkm": 8.3, "hr_avg": 125.0, "rpe": 1.0, "notes": "Running w/ novice friend, Slow and recovery focused. 4:20/km pace sprint for last 150m"}];
-const WEEKLY = [{"week": "2025-07-14", "dist_km": 5.0, "runs": 1, "pace_minpkm": 7.9, "rpe": 7.5}, {"week": "2025-07-28", "dist_km": 19.0, "runs": 3, "pace_minpkm": 7.6388888889, "rpe": 5.1666666667}, {"week": "2025-08-04", "dist_km": 51.37, "runs": 7, "pace_minpkm": 7.7928571429, "rpe": 4.6428571429}, {"week": "2025-08-11", "dist_km": 50.57, "runs": 6, "pace_minpkm": 7.4416666667, "rpe": 5.25}, {"week": "2025-08-18", "dist_km": 58.53, "runs": 6, "pace_minpkm": 7.2194444444, "rpe": 5.0833333333}, {"week": "2025-08-25", "dist_km": 20.53, "runs": 2, "pace_minpkm": 7.65, "rpe": 3.75}, {"week": "2025-09-01", "dist_km": 10.02, "runs": 1, "pace_minpkm": 7.0833333333, "rpe": 5.0}, {"week": "2025-09-08", "dist_km": 23.05, "runs": 3, "pace_minpkm": 6.5722222222, "rpe": 3.6666666667}, {"week": "2025-09-15", "dist_km": 37.15, "runs": 4, "pace_minpkm": 6.5291666667, "rpe": 4.25}, {"week": "2025-09-22", "dist_km": 21.1, "runs": 1, "pace_minpkm": 6.5, "rpe": 8.0}, {"week": "2025-09-29", "dist_km": 10.47, "runs": 1, "pace_minpkm": 7.35, "rpe": 7.0}, {"week": "2025-10-06", "dist_km": 33.1, "runs": 3, "pace_minpkm": 8.6222222222, "rpe": 3.8333333333}, {"week": "2025-10-13", "dist_km": 66.1, "runs": 7, "pace_minpkm": 7.35, "rpe": 4.2857142857}, {"week": "2025-10-20", "dist_km": 20.11, "runs": 3, "pace_minpkm": 6.9444444444, "rpe": 4.8333333333}];
+const DAILY = __DAILY__;
+const WEEKLY = __WEEKLY__;
 
 const typeSelect = document.getElementById('typeFilter');
 const types = Array.from(new Set(DAILY.map(d => d.type))).filter(Boolean);
@@ -277,3 +342,80 @@ document.getElementById('reset').onclick = () => {
 </script>
 </body>
 </html>
+"""
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--src", default="run_log_plan_actual_summary.csv")
+    ap.add_argument("--out", default="run_dashboard.html")
+    args = ap.parse_args()
+
+    df = detect_and_read_csv(Path(args.src))
+
+    expected = ["date","type","distance_km","avg_pace","avg_hr_bpm","avg_cadence_spm","rpe","notes"]
+    missing_cols = [c for c in expected if c not in df.columns]
+    if missing_cols:
+        raise ValueError(f"CSV missing required columns: {missing_cols}")
+
+    df["date"] = df["date"].apply(parse_date)
+    df = df.sort_values("date").reset_index(drop=True)
+
+    # Normalize fields
+    df["type"] = df["type"].astype(str).str.strip().str.lower()
+
+    # distance (km) - decimal
+    df["dist_km"] = pd.to_numeric(df["distance_km"], errors="coerce")
+
+    # pace (mm:ss -> minutes)
+    df["pace_minpkm"] = df["avg_pace"].apply(parse_pace_mmss_to_minutes)
+
+    # hr & cadence
+    df["hr_avg"] = pd.to_numeric(df["avg_hr_bpm"], errors="coerce")
+    df["cadence_spm"] = pd.to_numeric(df["avg_cadence_spm"], errors="coerce")
+
+    # rpe
+    df["rpe"] = pd.to_numeric(df["rpe"], errors="coerce")
+
+    # notes
+    df["notes"] = df["notes"].astype(str).fillna("")
+
+    # week (Monday)
+    df["week"] = df["date"].apply(monday_of_week)
+
+    # Impute only missing values (per-type median -> global median). Distances often 0 allowed; don't impute dist.
+    # pace
+    df["pace_minpkm"] = impute_with_medians(df, "pace_minpkm", by="type")
+    # hr
+    df["hr_avg"] = impute_with_medians(df, "hr_avg", by="type")
+    # cadence
+    df["cadence_spm"] = impute_with_medians(df, "cadence_spm", by="type")
+    # rpe: prefer type defaults if still missing
+    type_rpe_default = {"easy":5, "long":6, "tempo":7, "interval":8, "race":9, "test":6, "rest":2}
+    miss_rpe_mask = df["rpe"].isna()
+    df.loc[miss_rpe_mask, "rpe"] = df.loc[miss_rpe_mask, "type"].map(type_rpe_default)
+    df["rpe"] = impute_with_medians(df, "rpe", by="type")
+
+    # Prepare DAILY/WEEKLY JSON
+    daily = df[["date","type","dist_km","pace_minpkm","hr_avg","rpe","notes"]].copy()
+    daily["date"] = pd.to_datetime(daily["date"]).dt.strftime("%Y-%m-%d")
+
+    weekly = (
+        df.groupby(pd.to_datetime(df["week"]).dt.strftime("%Y-%m-%d"), as_index=False)
+          .agg(week=("week","first"),
+               dist_km=("dist_km","sum"),
+               runs=("date","count"),
+               pace_minpkm=("pace_minpkm","mean"),
+               rpe=("rpe","mean"))
+          .sort_values("week")
+    )
+    weekly["week"] = pd.to_datetime(weekly["week"]).dt.strftime("%Y-%m-%d")
+
+    html = (DASHBOARD_HTML
+            .replace("__DAILY__", json.dumps(json.loads(daily.to_json(orient="records")), ensure_ascii=False))
+            .replace("__WEEKLY__", json.dumps(json.loads(weekly.to_json(orient="records")), ensure_ascii=False)))
+
+    Path(args.out).write_text(html, encoding="utf-8")
+    print(f"Wrote {args.out}")
+
+if __name__ == "__main__":
+    main()
