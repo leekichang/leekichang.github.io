@@ -313,12 +313,12 @@ function render() {
       `날짜: ${row.date}`,
       `종류: ${row.type}`,
       `거리: ${row.dist_km} km`,
-      `페이스: ${row.pace_minpkm} 분/km (스피드 ${(row.pace_minpkm? (60/row.pace_minpkm).toFixed(2):'N/A')} km/h)`,
+      `페이스: ${row.pace_minpkm.toFixed(2)} 분/km (스피드 ${(row.pace_minpkm? (60/row.pace_minpkm).toFixed(2):'N/A')} km/h)`,
       `평균 심박: ${row.hr_avg ?? 'N/A'}`,
       `RPE: ${row.rpe}`,
       '',
       (row.notes || '(노트 없음)')
-    ].join('\\n');
+    ].join('\n');
     notes.textContent = text;
   };
   ['distDaily','paceDaily','rpeDaily'].forEach(id => {
