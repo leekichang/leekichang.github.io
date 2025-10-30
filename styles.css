@@ -28,7 +28,7 @@ hr{
     flex-direction: row;
     padding-left: 50%; /*1260px;*/
     margin-bottom: 30px;
-    background-color: black;
+    background-color: transparent;
 }       
 
 .upperBar li{
