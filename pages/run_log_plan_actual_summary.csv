@@ -3,7 +3,7 @@ date,type,distance_km,avg_pace,avg_hr_bpm,avg_cadence_spm,rpe,notes
 2025-08-01,Tempo,6,7:21,165,170,8,Splits ~6:53; last 6:31
 2025-08-02,LSD,12,8:46,155,169,3.5,Mild knee pain ~8km
 2025-08-03,Easy,1,6:48,,,4,
-2025-08-04,Easy,6.25,8:19,150,174,4,Slight knee discomfort ~5km; last 1km ~5:18
+2025-08-04,Recovery,6.25,8:19,150,174,4,Slight knee discomfort ~5km; last 1km ~5:18
 2025-08-05,Intervals,6,7:10,151,174,6.5,"2km WU; 400m on/off, 400m¡¿5"
 2025-08-06,Easy,6.01,7:58,,179,3,Last 1km faster
 2025-08-07,Tempo,7,6:31,153,181,4,RPE blocks 5?6¡æ6?7¡æ7?8
@@ -44,11 +44,12 @@ date,type,distance_km,avg_pace,avg_hr_bpm,avg_cadence_spm,rpe,notes
 2025-10-16,Fartlek,10,7:11,145,180,3,"Running w/ novice friend, Sprint upto 4:25"
 2025-10-18,LSD,20,7:26,138,181,5,"maintain HR < 140, muscle fatigue after 15~16km, no damage on cardio system"
 2025-10-19,Recovery,8,7:50,143,181,3,"Running w/ novice friend, build up from+H96 9:00/km to 7:00/km"
-2025-10-20,Easy,10,6:54,141,182,6,"Running w/ novice friend, recovery jog 5km + tempo run 5km (~5:30/km)"
+2025-10-20,Recovery,10,6:54,141,182,6,"Running w/ novice friend, recovery jog 5km + tempo run 5km (~5:30/km)"
 2025-10-21,Tempo,5,5:38,157,187,7.5,"WU 1km; <5:30/km 4km, ankle pain for first 1km, started bit side stitch 4km, faster than I felt since 3km."
 2025-10-21,Recovery,5.11,8:18,125,179,1,"Running w/ novice friend, Slow and recovery focused. 4:20/km pace sprint for last 150m"
-2025-10-22,Easy,10,8:37,127,174,2,"Running w/ novice friend, Slow and recovery focused. Felt a bit fatigue"
-2025-10-23,Easy,2,7:07,138,175,2,"warm up for pace training, feel bit fatigue, but still can run."
+2025-10-22,Recovery,10,8:37,127,174,2,"Running w/ novice friend, Slow and recovery focused. Felt a bit fatigue"
+2025-10-23,Recovery,2,7:07,138,175,2,"warm up for pace training, feel bit fatigue, but still can run."
 2025-10-23,Tempo,5,5:22,172,190,7,"Tried to run faster than 5:30/km, there were headwind after 2km point. Still managable."
 2025-10-28,Tempo,6,5:44,154,184,6,"Did not care about the pace or heart rate, focused on the respiration and feeling. Bit pain in left Tibialis Anterior. Sprint for last 200m ~4:30/km"
-2025-10-28,East,1.67,7:12,148,182,2,Cool down after previous session.
+2025-10-28,Recovery,1.67,7:12,148,182,2,Cool down after previous session.
+2025-10-29,Recovery,10.3,7:07,147,178,2.5,"Recovery after leg day, 50~100m sprint for each 3km. Max pace 2'29/km. "
