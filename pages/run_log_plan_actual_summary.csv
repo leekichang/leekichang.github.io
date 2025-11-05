@@ -53,3 +53,7 @@ date,type,distance_km,avg_pace,avg_hr_bpm,avg_cadence_spm,rpe,notes
 2025-10-28,Tempo,6,5:44,154,184,6,"Did not care about the pace or heart rate, focused on the respiration and feeling. Bit pain in left Tibialis Anterior. Sprint for last 200m ~4:30/km"
 2025-10-28,Recovery,1.67,7:12,148,182,2,Cool down after previous session.
 2025-10-29,Recovery,10.3,7:07,147,178,2.5,"Recovery after leg day, 50~100m sprint for each 3km. Max pace 2'29/km. "
+2025-11-02,Tempo,5.23,5:09,150,186,5,"Treadmill run, Build up and max 5:00"
+2025-11-03,Recovery,3.28,5:57,142,177,3,"Treadmill run, pack with schedule mini recovery session."
+2025-11-04,Easy,11.5,6:26,,185,5,Forgot the watch. Ran without HR data. Zone 3 jog.
+2025-11-05,Easy,10,6:40,140,184,3,"Found the error with watch, weird HR for first 2km. A bit like a build up style run."
