@@ -1,23 +1,23 @@
 date,type,distance_km,avg_pace,avg_hr_bpm,avg_cadence_spm,rpe,notes
-2025-07-20,Easy,5,7:54,163,166,7.5,"Track; 30""¡¿7 cadence drill after; heat ~28C"
+2025-07-20,Easy,5,7:54,163,166,7.5,"Track; 30""Â¡Â¿7 cadence drill after; heat ~28C"
 2025-08-01,Tempo,6,7:21,165,170,8,Splits ~6:53; last 6:31
 2025-08-02,LSD,12,8:46,155,169,3.5,Mild knee pain ~8km
 2025-08-03,Easy,1,6:48,,,4,
 2025-08-04,Recovery,6.25,8:19,150,174,4,Slight knee discomfort ~5km; last 1km ~5:18
-2025-08-05,Intervals,6,7:10,151,174,6.5,"2km WU; 400m on/off, 400m¡¿5"
+2025-08-05,Intervals,6,7:10,151,174,6.5,"2km WU; 400m on/off, 400mÂ¡Â¿5"
 2025-08-06,Easy,6.01,7:58,,179,3,Last 1km faster
-2025-08-07,Tempo,7,6:31,153,181,4,RPE blocks 5?6¡æ6?7¡æ7?8
+2025-08-07,Tempo,7,6:31,153,181,4,RPE blocks 5?6Â¡Ã¦6?7Â¡Ã¦7?8
 2025-08-08,Easy,6,8:14,151,179,5,Hot; hip discomfort
 2025-08-09,LSD,15,7:46,147,183,6,Hip improved; knee discomfort after 10km
 2025-08-10,Easy,5.11,8:35,150,178,4,Ran with friend; last 1km faster
 2025-08-11,Easy,8.11,7:33,144,185,4,Last 2km faster
-2025-08-12,Intervals,8,7:00,136,183,8,"WU 2km; HRpeak 175; side stitch from rep3, 800m¡¿5"
+2025-08-12,Intervals,8,7:00,136,183,8,"WU 2km; HRpeak 175; side stitch from rep3, 800mÂ¡Â¿5"
 2025-08-14,Tempo,5,7:10,145,178,,Cut short; low energy
 2025-08-15,Easy,8.15,7:17,145,178,5,Hip discomfort persists; fatigue
 2025-08-16,LSD,16,6:44,155,183,4,Felt depleted late; need gels
 2025-08-17,Easy,5.31,8:55,117,173,3.5,Heavy first 2km then ok
 2025-08-18,Easy,8.15,7:13,,,3,Segments; 400m @5:00 inside
-2025-08-19,Intervals,9.6,4:50,172,,8,Good HR recovery; stitch mid-session 800m¡¿5
+2025-08-19,Intervals,9.6,4:50,172,,8,Good HR recovery; stitch mid-session 800mÂ¡Â¿5
 2025-08-20,Easy,6.33,9:12,132,169,1.5,
 2025-08-22,Tempo,8.02,6:54,151,180,6,Steady; one fast km 5:45
 2025-08-23,Easy,5.32,7:50,140,172,4,
@@ -52,9 +52,15 @@ date,type,distance_km,avg_pace,avg_hr_bpm,avg_cadence_spm,rpe,notes
 2025-10-23,Tempo,5,5:22,172,190,7,"Tried to run faster than 5:30/km, there were headwind after 2km point. Still managable."
 2025-10-28,Tempo,6,5:44,154,184,6,"Did not care about the pace or heart rate, focused on the respiration and feeling. Bit pain in left Tibialis Anterior. Sprint for last 200m ~4:30/km"
 2025-10-28,Recovery,1.67,7:12,148,182,2,Cool down after previous session.
-2025-10-29,Recovery,10.3,7:07,147,178,2.5,"Recovery after leg day, 50~100m sprint for each 3km. Max pace 2'29/km. "
+2025-10-29,Recovery,10.3,7:07,147,178,2.5,"Recovery after leg day, 50~100m sprint for each 3km. Max pace 2'29/km."
 2025-11-02,Tempo,5.23,5:09,150,186,5,"Treadmill run, Build up and max 5:00"
 2025-11-03,Recovery,3.28,5:57,142,177,3,"Treadmill run, pack with schedule mini recovery session."
 2025-11-04,Easy,11.5,6:26,,185,5,Forgot the watch. Ran without HR data. Zone 3 jog.
 2025-11-05,Easy,10,6:40,140,184,3,"Found the error with watch, weird HR for first 2km. A bit like a build up style run."
 2025-11-06,Tempo,10,5:37,165,191,7.5,"10K PB, first 10k sub1"
+2025-11-16,Recovery,5,6:14,158,188,4,Recovery from right knee injury
+2025-11-17,Easy,10,7:04,140,174,3,
+2025-11-18,Tempo,10,6:16,163,185,5,
+2025-11-19,Tempo,6.15,6:12,157,185,5,
+2025-11-20,Tempo,2.51,5:17,160,188,7,
+2025-11-21,Easy,10,6:36,149,182,4,
