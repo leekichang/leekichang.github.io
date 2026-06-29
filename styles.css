@@ -319,3 +319,146 @@ span.label-sa     { background-color: #00DE7B; }
 #publications-year-view li {
     margin-bottom: 16px;
 }
+
+.resource-page {
+    color: #111;
+    margin: 0 auto;
+    max-width: 980px;
+    padding: 28px 10% 56px;
+}
+
+.resource-nav {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+    margin-bottom: 42px;
+}
+
+.resource-nav a,
+.resource-section a {
+    color: #125c9e;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.resource-nav a:hover,
+.resource-section a:hover {
+    text-decoration: underline;
+}
+
+.resource-hero {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+}
+
+.resource-kicker {
+    color: #555;
+    font-size: 90%;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.resource-hero h1 {
+    font-size: 280%;
+    line-height: 1.1;
+    margin: 0 0 18px;
+}
+
+.resource-hero p,
+.resource-section p,
+.resource-list {
+    font-size: 105%;
+    line-height: 1.75;
+}
+
+.language-toggle {
+    display: inline-flex;
+    gap: 4px;
+    margin: 0 0 18px;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f7f7f7;
+}
+
+.language-toggle-button {
+    border: 0;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #222;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    min-width: 78px;
+    padding: 6px 10px;
+}
+
+.language-toggle-button.active {
+    background-color: #222;
+    color: #fff;
+}
+
+.language-toggle-button:focus-visible {
+    outline: 2px solid #2196F3;
+    outline-offset: 2px;
+}
+
+.resource-section {
+    margin: 28px 0;
+}
+
+.download-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.download-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.download-card h3 {
+    margin-top: 0;
+}
+
+.download-button {
+    background-color: #222;
+    border-radius: 6px;
+    color: #fff !important;
+    display: inline-block;
+    margin-top: 8px;
+    padding: 9px 12px;
+    text-decoration: none !important;
+}
+
+.download-button:hover {
+    background-color: #444;
+}
+
+.resource-list li {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .resource-page {
+        padding: 22px 7% 42px;
+    }
+
+    .resource-nav {
+        justify-content: flex-start;
+        margin-bottom: 30px;
+    }
+
+    .resource-hero h1 {
+        font-size: 220%;
+    }
+
+    .download-grid {
+        grid-template-columns: 1fr;
+    }
+}
