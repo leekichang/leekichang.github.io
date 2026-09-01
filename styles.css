@@ -135,6 +135,7 @@ hr{
 
 .myProfile .profileInfo {
     display: flex;
+    min-width: 0;
     flex-direction: column; /* 항목들을 세로로 배치합니다. */
 }
 
@@ -168,10 +169,46 @@ hr{
     border-radius: 10%;
 }
 
+.affiliationLogos {
+    align-items: center;
+    display: flex;
+    flex: 0 1 300px;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+    margin: 0;
+    min-width: 220px;
+}
+
+.myProfile .affiliationLogo {
+    border-radius: 0;
+    display: block;
+    height: auto;
+    max-width: none;
+    object-fit: contain;
+}
+
+.myProfile .affiliationLogo--kaist {
+    width: 220px;
+}
+
+.myProfile .affiliationLogo--yonsei {
+    width: 220px;
+}
+
+.myProfile .profilePhoto {
+    border-radius: 10%;
+    flex: 0 1 300px;
+    height: auto;
+    max-width: 300px;
+    width: clamp(220px, 24vw, 300px);
+}
+
 .myProfile .profileName{
     color: black;
     font-size: 200%;
     line-height: 150%;
+    margin: 0 0 6px;
 }
 
 .myProfile .student{
@@ -560,5 +597,41 @@ span.label-sa     { background-color: #00DE7B; }
 
     .download-card {
         min-height: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .myProfile {
+        align-items: center;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 24px;
+        padding: 24px 0 20px;
+    }
+
+    .myProfile .profileInfo {
+        width: 100%;
+    }
+
+    .myProfile .profilePhoto {
+        flex-basis: auto;
+        margin-bottom: 0;
+        width: min(62vw, 240px);
+    }
+
+    .affiliationLogos {
+        flex-basis: auto;
+        flex-direction: row;
+        min-width: 0;
+    }
+
+    .myProfile .affiliationLogo--kaist {
+        margin-bottom: 0;
+        width: 150px;
+    }
+
+    .myProfile .affiliationLogo--yonsei {
+        margin-bottom: 0;
+        width: 74px;
     }
 }
